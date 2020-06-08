@@ -33,7 +33,7 @@ module logicalunit(
          
       //Todo: add you logic here
 	
-	assign out= ~ a ? (b ? func[3] : func[2]) : (b ? func[1] : func[0]);
+	assign out= a ? (b ? func[3] : func[2]) : (b ? func[1] : func[0]);
 	
 
 endmodule

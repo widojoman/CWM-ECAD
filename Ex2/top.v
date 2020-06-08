@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Exercise #2 
-// Student Name:
-// Date: 
+// Student Name:Matthew
+// Date: 6/8/2020
 //
 //  Description: In this exercise, you need to design a multiplexer, where the  
 //  output acts according to the following truth table:
@@ -32,7 +32,7 @@ module mux(
 	wire out;
 
     //Todo: define your logic here
-	assign #5 out=~ sel?b:a;
+	assign #5 out= sel?b:a;
               
       
 endmodule
