@@ -24,10 +24,10 @@ module counter(
     input enable,
     input direction,
     input clk,
-    output [7:0] counter_out
+    output reg [7:0] counter_out
     );               
     //Todo: add registers and wires, if needed
-    reg [7:0] counter_out;
+
 
     //Todo: add user logic
     

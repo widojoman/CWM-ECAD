@@ -79,6 +79,7 @@ module top_tb(
        			end
 		
 		rst=0;
+		direction=1;
 	end
 	end
 
