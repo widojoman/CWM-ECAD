@@ -15,7 +15,7 @@ module top_tb(
     
 //Todo: Parameters
     parameter CLK_PERIOD = 10; //sets clock period, of 10 time units
-    parameter Test_period = 1000; //in terms of time period, how long will the counter run for
+    parameter Test_period = 600; //in terms of time period, how long will the counter run for
 
 //Todo: Registers and wires
     reg clk;
@@ -35,40 +35,59 @@ module top_tb(
     end
 
 //Todo: User logic
-    initial
-    begin
+    initial begin
     	rst=1;
     	direction = 1;
-	   enable = 0;
-	    err = 0;
-	    //Running code
+	enable = 1;
+	err = 0;
+	//Running code
 
-	   #50 rst=0; //rst to zero so it works
-	   //Testing if rst works
-	   #CLK_PERIOD
-	   if (counter_out!=0)
-	   begin
-    	   $display("Test Failed reset");
-    	   err=1;
-        end
-	   
-	   #50 enable=1;
-	   #50 enable=0;
-	   #50 enable=1;
-	   #100 direction=0;
-	   #100 direction=1;
-	   #100 rst=1;
-	   #50 rst=0;
-	   
+	#50 rst=0; //rst to zero so it works
 
-    end
+	//Tests
+	forever begin
+		prev_counter <= counter_out;	   
+		#80;
+		if (!(counter_out>prev_counter))
+			begin
+   	   		$display("Test Failed to ascend");
+   	   		err<=1;
+       		end
+		prev_counter = counter_out;
+		enable=0;
+		#50;
+		if (!(counter_out==prev_counter))
+			begin
+   	   		$display("Test Failed to pause");
+   	   		err=1;
+       			end
+		prev_counter = counter_out;
+		enable=1;
+		direction=0;
+		#50
+		if (!(counter_out<prev_counter))
+		begin
+   	   		$display("Test Failed to descend");
+   	   		err=1;
+       	end
+		rst=1;
+		#30
+		if (!(counter_out==0))
+			begin
+   	   		$display("Test Failed to reset");
+   	   		err=1;
+       			end
+		
+		rst=0;
+	end
+	end
 
 //Todo: Finish test, check for success
     initial
     begin
     	#Test_period 
     	if (err==0)
-    	   $display("Test Passed :)");
+    	   $display("***Test Passed :)");
 	
 
     	$finish;
