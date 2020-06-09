@@ -27,13 +27,15 @@ module counter(
     output [7:0] counter_out
     );               
     //Todo: add registers and wires, if needed
-    reg [7:0] counter;
+    reg [7:0] counter_out;
 
     //Todo: add user logic
-    assign counter_out=counter;
     
     always@(posedge clk)
-	counter<= rst?2'b0:enable?direction?counter+1:counter-1:counter;
+	if (rst==1)
+		counter_out = #1 8'h0;
+	else
+		counter_out<= #1 (enable == 0) ? counter_out : (direction == 1) ? counter_out+1 : counter_out-1;
 		  
     
  
