@@ -22,17 +22,17 @@
 
 module mux(
     //Todo: define inputs here
-	input a,
-    	input b,
-    	input sel,
-    	output out
+    input sel,
+	input clk,
+    input [2:0] a,
+    input [2:0] b,
+    output reg [2:0] out
     );
-    
-    //Todo: define registers and wires here
-	wire out;
 
-    //Todo: define your logic here
-	assign out= sel?b:a;
-              
-      
+ 
+    //Todo: define your logic here                 
+    always @ (posedge clk) begin
+	   out = sel ? b : a;
+    end
+    
 endmodule

@@ -32,7 +32,9 @@ module muxover(
     
     //Todo: define registers and wires here
 	wire throw[2:0];
-	wire b[2:0];
+	wire red;
+	wire yellow;
+	wire green;
 
     //Todo: define your logic here
 
@@ -40,23 +42,24 @@ module muxover(
 //Todo: Instantiate modules
     lights lights(
 	.clk (clk),
-	.red (b[2]),
-	.amber (b[1]),
-	.green (b[0])
+	.red (red),
+	.amber (yellow),
+	.green (green)
 	);
 	
     dice dice(
 	.rst (rst),
 	.button (button),
 	.clk (clk),
-	.throw_out (throw)
+	.throw_out (throw [2:0] )
 	);
 
     mux multiplexer (
-     .a (throw),
-     .b (b),
      .sel (sel),
+     .clk (clk),
+     .a (throw [2:0] ),
+     .b ({red,amber,green}),
      .out (out)
-     );          
+        );          
       
 endmodule
