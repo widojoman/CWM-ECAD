@@ -14,3 +14,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+`timescale 1ns / 100ps
+
+module times_table (
+	input clk,
+	input [2:0] a,
+	input [2:0] b,
+	input enable,
+	output wire [5:0] out
+	);
+
+
+blk_mem_gen_0 your_instance_name (
+  .clka(clk),    // input wire clka
+  .ena(enable),      // input wire ena
+  .wea(0),      // input wire [0 : 0] wea
+  .addra({a,b}),  // input wire [5 : 0] addra
+  .dina(0),    // input wire [5 : 0] dina
+  .douta(out)  // output wire [5 : 0] douta
+);
+
+endmodule
