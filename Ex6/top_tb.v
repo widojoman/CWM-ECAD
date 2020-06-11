@@ -50,9 +50,10 @@ module top_tb(
    		$display("Test Failed to ascend");
    		err=1;
 	end
-	prev_counter = out;
 	button=0;
-	#50;
+	#20
+	prev_counter = out;
+	#30;
 	if (!(out==prev_counter))
 		begin
    		$display("Test Failed to pause");
@@ -60,21 +61,14 @@ module top_tb(
 		end
 	prev_counter = out;
 	button=1;
+	#20
 	if (out==3'd111 || 3'd000)
 	begin
    		$display("Test went out of bounds");
    		err=1;
 	end
 	#200
-	rst=1;
-	if (!(out==0))
-		begin
-   		$display("Test Failed to reset");
-   		err=1;
-		end
 	
-	rst=0;
-	#40
 	forever begin
 		sel=1;
 		prev_counter = {out[2],out[1],out[0]};	   

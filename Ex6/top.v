@@ -22,44 +22,22 @@
 `timescale 1ns / 100ps
 
 module muxover(
+
     //Todo: define inputs here
-	input rst,
-    	input clk,
-    	input sel,
-	input button,
-    	output wire [2:0] out
+    input rst,
+    input clk,
+    input button,
+    input sel,
+	output wire [2:0] out
     );
-    
-    //Todo: define registers and wires here
-	wire throw[2:0];
-	wire red;
-	wire yellow;
-	wire green;
-
-    //Todo: define your logic here
-
 	
-//Todo: Instantiate modules
-    lights lights(
-	.clk (clk),
-	.red (red),
-	.amber (yellow),
-	.green (green)
-	);
+	wire [2:0] throw;
+	wire [2:0] rag;
 	
-    dice dice(
-	.rst (rst),
-	.button (button),
-	.clk (clk),
-	.throw_out (throw [2:0] )
-	);
+    	dice dice_out(rst,button,clk,throw);
+	lights lights_out(clk,rag[2],rag[1],rag[0]);
 
-    mux multiplexer (
-     .sel (sel),
-     .clk (clk),
-     .a (throw [2:0] ),
-     .b ({red,amber,green}),
-     .out (out)
-        );          
-      
+	mux choice(sel,clk,throw,rag,out);
+
+	      
 endmodule
